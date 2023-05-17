@@ -15,13 +15,15 @@ export class ItemListComponent implements OnInit{
   title: string ="";
 
   page: number =0;
-  size: number = 1;
+  size: number = 25;
   sort: string = "name,asc";
 
   first: boolean = false;
   last: boolean = false;
   totalPages: number = 0;
   totalElements: number = 0;
+  nameFilter?: string;
+  priceFilter?: number;
 
 
   constructor(private route: ActivatedRoute,
@@ -39,7 +41,9 @@ export class ItemListComponent implements OnInit{
     }
   }
   private getAllItems(): void{
-    this.itemService.getAllItems(this.page, this.size, this.sort).subscribe ({
+    const filters : string | undefined = this.buildFilters();
+
+    this.itemService.getAllItems(this.page, this.size, this.sort, filters).subscribe ({
       next: (data:any) => {
         this.items = data.content;
         this.first = data.first;
@@ -63,14 +67,43 @@ export class ItemListComponent implements OnInit{
   }
 
   public nextPage():void{
-    this.page++;
-    this.getAllItems();
-  }
-  public previousPage():void{
-    this.page--;
+    this.page = this.page+1;
     this.getAllItems();
   }
 
+  public previousPage():void{
+    this.page = this.page-1;
+    this.getAllItems();
+  }
+
+  public searchByFilters():void{
+    this.getAllItems();
+  }
+
+  //Crear una clase especifica para este método
+  private buildFilters():string|undefined{
+
+    const filters: string[] = [];
+
+    if(this.nameFilter){ //Nombre igual o que contenga
+      filters.push("name:MATCH:" + this.nameFilter);
+    }
+    if(this.priceFilter){ //precio menor o igual
+      filters.push("price:LESS_THAN_EQUAL:" + this.priceFilter);
+    }
+
+    if(filters.length>0){
+      let globalFilters: string = "";
+      for(let filter of filters){
+        globalFilters = globalFilters + filter + ",";
+      }
+      //para eliminar la última coma del string generado
+      globalFilters = globalFilters.substring(0, globalFilters.length-1);
+      return globalFilters;
+    }else{
+      return undefined;
+    }
+  }
 
 
 }

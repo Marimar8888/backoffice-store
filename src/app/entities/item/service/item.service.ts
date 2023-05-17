@@ -10,8 +10,11 @@ export class ItemService {
 
   constructor(private httpClient: HttpClient   ) { }
 
-  public getAllItems(page: number, size: number, sort: string): Observable<Item[]>{
-    const urlEndpoint: string = "http://localhost:8080/store/items?page=" + page + "&size=" + size + "&sort=" + sort;
+  public getAllItems(page: number, size: number, sort: string, filters?:string): Observable<Item[]>{
+    let urlEndpoint: string = "http://localhost:8080/store/items?page=" + page + "&size=" + size + "&sort=" + sort;
+    if(filters){
+      urlEndpoint = urlEndpoint + "&filter=" + filters;
+    }
     return this.httpClient.get<Item[]>(urlEndpoint);
   }
   public getAllItemsByCategoryId(categoryId: number): Observable<Item[]>{
