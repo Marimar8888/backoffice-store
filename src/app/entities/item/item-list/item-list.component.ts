@@ -34,11 +34,11 @@ export class ItemListComponent implements OnInit{
       //Para cambiar un number a cadera poniendo un + delante y ! por que puede ser nulo
       this.categoryId=+this.route.snapshot.paramMap.get("categoryId")!;
       this.title = "Artículos de la categoría "+ this.categoryId;
-      this.getAllItemsInCategoryId(this.categoryId);
+
     }else{
       this.title = "Lista de artículos";
-      this.getAllItems();
     }
+    this.getAllItems();
   }
   private getAllItems(): void{
     const filters : string | undefined = this.buildFilters();
@@ -55,12 +55,7 @@ export class ItemListComponent implements OnInit{
     })
     console.log(this.items);
   }
-  private getAllItemsInCategoryId(categoryId: number): void{
-    this.itemService.getAllItemsByCategoryId(categoryId).subscribe ({
-      next: (itemsRequest) => { this.items = itemsRequest; },
-      error: (err) => { this.handleError(err); }
-    })
-  }
+
 
   private handleError(error: any): void{
     //Lo que queramos que haga por ejemplo mostrar un alert al usuario
@@ -84,6 +79,9 @@ export class ItemListComponent implements OnInit{
   private buildFilters():string|undefined{
 
     const filters: string[] = [];
+    if(this.categoryId){
+      filters.push("category.id:EQUAL:" + this.categoryId)
+    }
 
     if(this.nameFilter){ //Nombre igual o que contenga
       filters.push("name:MATCH:" + this.nameFilter);

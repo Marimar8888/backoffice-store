@@ -17,10 +17,5 @@ export class ItemService {
     }
     return this.httpClient.get<Item[]>(urlEndpoint);
   }
-  public getAllItemsByCategoryId(categoryId: number): Observable<Item[]>{
-    const urlEndpoint: string = "http://localhost:8080/store/categories/" + categoryId + "/items";
-    return this.httpClient.get<Item[]>(urlEndpoint);
-  }
-
 
 }
