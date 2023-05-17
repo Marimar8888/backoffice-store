@@ -36,7 +36,7 @@
       <td>{{ item.price }}</td>
       <td>
         <button id="btnEditCategory">Editar</button>
-        <button id="btnDeleteCategory">Eliminar</button>
+        <button id="btnDeleteCategory" data-bs-toggle="modal" data-bs-target="#askConfirmationDelete"  (click)="prepareItemToDelete(item.id!);">Eliminar</button>
       </td>
     </tr>
   </tbody>
@@ -46,4 +46,26 @@
   <button [disabled]="first" class="btn btn-secondary btnPrev" (click)="previousPage()">Anterior</button>
   <span>  Pagina {{page+1}} de {{totalPages}} - Total de elementos {{totalElements}}  </span>
   <button [disabled]="last" class="btn btn-secondary btnNext" (click)="nextPage()">Siguiente</button>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="askConfirmationDelete" tabindex="-1" role="dialog" aria-labelledby="askConfirmationDelete" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmación de borrado</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Desea eliminar el registro seleccionado? Esta operación no puede deshacerse.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="declateItem();">Eliminar</button>
+      </div>
+    </div>
+  </div>
 </div>

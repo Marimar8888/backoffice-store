@@ -8,6 +8,7 @@ import { Item } from '../modelo/item.model';
 })
 export class ItemService {
 
+
   constructor(private httpClient: HttpClient   ) { }
 
   public getAllItems(page: number, size: number, sort: string, filters?:string): Observable<Item[]>{
@@ -16,6 +17,11 @@ export class ItemService {
       urlEndpoint = urlEndpoint + "&filter=" + filters;
     }
     return this.httpClient.get<Item[]>(urlEndpoint);
+  }
+
+  public deleteItem(itemIdToDelete: number): Observable<any> {
+    let urlEndpoint: string = "http://localhost:8080/store/items/" + itemIdToDelete;
+    return this.httpClient.delete<any>(urlEndpoint);
   }
 
 }

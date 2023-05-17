@@ -25,6 +25,8 @@ export class ItemListComponent implements OnInit{
   nameFilter?: string;
   priceFilter?: number;
 
+  itemIdToDelete?: number;
+
 
   constructor(private route: ActivatedRoute,
               private itemService: ItemService){}
@@ -73,6 +75,22 @@ export class ItemListComponent implements OnInit{
 
   public searchByFilters():void{
     this.getAllItems();
+  }
+
+  public prepareItemToDelete(itemId: number):void{
+    this.itemIdToDelete = itemId;
+  }
+
+  public declateItem(){
+    if(this.itemIdToDelete){
+      this.itemService.deleteItem(this.itemIdToDelete).subscribe({
+        next: (data)=> {
+          this.getAllItems();
+        },
+        error: (err) => {this.handleError(err)}
+      });
+    }
+
   }
 
   //Crear una clase especifica para este método
