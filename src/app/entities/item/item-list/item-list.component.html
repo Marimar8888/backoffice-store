@@ -37,7 +37,6 @@
       <td>{{ item.name }}</td>
       <td>{{ item.price }}</td>
       <td>
-        div#
         <button id="btnEditCategory" [routerLink]="['/items', item.id]">Editar</button>
         <button id="btnDeleteCategory" data-bs-toggle="modal" data-bs-target="#askConfirmationDelete"  (click)="prepareItemToDelete(item.id!);">Eliminar</button>
       </td>

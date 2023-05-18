@@ -40,6 +40,36 @@ export class ItemFormComponent implements OnInit {
     this.item = new Item(undefined, "", 0);
   }
 
+  public saveItem():void{
+    if(this.mode == "NEW"){
+      this.insertItem();
+    }
+
+    if(this.mode == "UPDATE"){
+      this.updateItem();
+    }
+  }
+
+  private insertItem():void{
+    this.itemService.insertItem(this.item!).subscribe({
+      next: (itemInserted) => {
+        console.log("insertado correctamente");
+        console.log(itemInserted);
+      },
+      error: (err) => {this.handleError(err);}
+    });
+  }
+
+  private updateItem():void{
+    this.itemService.updatetItem(this.item!).subscribe({
+      next: (itemUpdate) => {
+      console.log("Actualizado correctamente");
+      console.log(itemUpdate);
+    },
+    error: (err) => {this.handleError(err);}
+  });
+  }
+
   private handleError(err: any): void{
     //Lo que queramos que vea el usuario un alert....
   }
