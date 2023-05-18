@@ -12,15 +12,10 @@
   <!-- Category Id: -->
   <div class="form-group">
     <label for="categoryId">Categoria</label>
-    <input type="number" [(ngModel)]="item.categoryId" class="form-control" #categoryId="ngModel" id="categoryId" name="categoryId" required>
+    <p-autoComplete [(ngModel)]="selectedCategory" name="selectedCategory" [suggestions]="categories" (completeMethod)="getAllCategories($event)"
+    field="name" (onSelect)="categorySelected();" (onclear)="categoryUnselected();" [required]="true" [forceSelection]="true" ></p-autoComplete>
   </div>
-  <!--Validación del Categoria-->
-  <div *ngIf="(categoryId.dirty && categoryId.errors)">
-    <small class="form-text text-darger"
-      *ngIf="categoryId.errors['required']">
-        Este campo es requerido
-    </small>
-  </div>
+
   <!-- Name: -->
   <div class="form-group">
     <label for="name">Nombre</label>

@@ -10,9 +10,12 @@ export class CategoryService {
 
   constructor(private httpClient: HttpClient   ) { }
 
-  public getAllCategories(): Observable<Category[]>{
+  public getAllCategories(partialName?: string): Observable<Category[]>{
 
-    const urlEndpoint: string = "http://localhost:8080/store/categories";
+    let urlEndpoint: string = "http://localhost:8080/store/categories";
+    if(partialName){
+      urlEndpoint = urlEndpoint + "?partialName=" + partialName;
+    }
     return this.httpClient.get<Category[]>(urlEndpoint);
 
   }

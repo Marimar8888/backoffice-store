@@ -16,6 +16,10 @@ import { ItemListComponent } from './entities/item/item-list/item-list.component
 import { ItemFormComponent } from './entities/item/item-form/item-form.component';
 import { HttpRequestIntercept } from './config/interceptors/http-request-interceptor.interceptor';
 
+//Modulos de terceros
+import { AutoCompleteModule } from 'primeng/autocomplete';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +36,9 @@ import { HttpRequestIntercept } from './config/interceptors/http-request-interce
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AutoCompleteModule
+
   ],
   providers: [
     {
