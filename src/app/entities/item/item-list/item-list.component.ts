@@ -81,7 +81,7 @@ export class ItemListComponent implements OnInit{
     this.itemIdToDelete = itemId;
   }
 
-  public declateItem(){
+  public deleteItem(){
     if(this.itemIdToDelete){
       this.itemService.deleteItem(this.itemIdToDelete).subscribe({
         next: (data)=> {
