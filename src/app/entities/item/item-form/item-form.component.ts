@@ -100,6 +100,55 @@ export class ItemFormComponent implements OnInit {
     this.item!.categoryName = undefined;
   }
 
+  public includeImageInItem(event: any): void{
+    const inputFile = event.target as HTMLInputElement;
+    const file: File | null = inputFile.files?.item(0) ?? null;
+
+    this.readFileAsString(file!).then(
+      (result) => {
+        const imageType: string = this.getImageType(result);
+        console.log(imageType);
+        const imageBase64: string = this.getImageBase64(result);
+        console.log(imageBase64);
+        this.item!.image = imageBase64;
+      },
+      (error) => {
+        console.log("No se pudo cargar el archivo");
+      }
+    )
+  }
+
+  public getImageType(imageString: string): string{
+    const imageStringParts: string[] =imageString.split(",");
+    if(imageStringParts.length == 2){
+      return imageStringParts[0];
+    }else{
+      console.log("No es un fichero correcto.");
+      return ""
+    }
+  }
+  public getImageBase64(imageString: string): string{
+    const imageStringParts: string[] =imageString.split(",");
+    if(imageStringParts.length == 2){
+      return imageStringParts[1];
+    }else{
+      console.log("No es un fichero correcto.");
+      return "";
+    }
+  }
+
+
+
+  private readFileAsString(file:File) {
+    return new Promise<string>(function(resolve, reject){
+      let reader: FileReader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function(){
+        resolve(this.result as string)
+      }
+    })
+  }
+
   private handleError(err: any): void{
     //Lo que queramos que vea el usuario un alert....
   }

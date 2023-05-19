@@ -55,8 +55,10 @@
   </div>
     <!-- Imagen: -->
     <div class="form-group">
-      <label for="image">Imagen (base64)</label>
-      <input type="test" [(ngModel)]="item.image" class="form-control" #image="ngModel" id="image" name="image">
+      <label for="image">Imagen</label>
+      <input  type="file"  class="form-control" id="image" (change)="includeImageInItem($event)">
+      <img *ngIf="item.image" [src]="'data:image/jpeg;base64,' + item.image">
+
     </div>
   <div class="buttonsForm">
     <button (click)="saveItem()" [disabled]="itemForm.invalid">Guardar</button>
