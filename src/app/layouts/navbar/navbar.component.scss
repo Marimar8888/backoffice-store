@@ -1,4 +1,33 @@
-.navbar{
-  height: 80px;
+@import "src/styles.scss";
 
+#navbar {
+	padding: 0 0;
+	background-color: $background-color_1;
 }
+ul#nav-items {
+	position: absolute;
+	justify-content: right;
+	text-align: right;
+	display: flex;
+	width: 100%;
+	background-color: $background-color_1;
+	right: 0%;
+	font-style: italic;
+}
+ul {
+	>li.active {
+		font-weight: bold;
+		font-style: italic;
+		background-color: $background-color_5;
+	}
+}
+li {
+	a.nav-link {
+		&:hover {
+			background-color: $background-color_5;
+			color: $color_3;
+		}
+	}
+}
+
+

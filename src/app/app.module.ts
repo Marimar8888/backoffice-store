@@ -19,6 +19,8 @@ import { HttpRequestIntercept } from './config/interceptors/http-request-interce
 //Modulos de terceros
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ItemReactiveFormComponent } from './entities/item/item-reactive-form/item-reactive-form.component';
+import { HeaderComponent } from './layouts/header/header.component';
+import { NosotrosComponent } from './layouts/nosotros/nosotros.component';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { ItemReactiveFormComponent } from './entities/item/item-reactive-form/it
     CategoryFormComponent,
     ItemListComponent,
     ItemFormComponent,
-    ItemReactiveFormComponent
+    ItemReactiveFormComponent,
+    HeaderComponent,
+    NosotrosComponent
   ],
   imports: [
     BrowserModule,
